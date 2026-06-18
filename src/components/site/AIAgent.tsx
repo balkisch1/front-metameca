@@ -177,7 +177,6 @@ export function AIAgent() {
     const userMsg = (overrideText ?? input).trim();
     if (!userMsg) return;
 
-    setShowChips(false);
     setMessages((prev) => [...prev, { role: "user", text: userMsg }]);
     setInput("");
     setLoading(true);
@@ -406,22 +405,21 @@ export function AIAgent() {
                 </div>
               )}
 
-              {/* CHIPS — toujours visibles sous le 1er message bot */}
-              <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingLeft:33,animation:"mmFadeIn 0.4s ease"}}>
-                {SUGGESTIONS.map((s) => (
-                  <button key={s} className="mm-chip" onClick={() => showChips && sendMessage(s)} style={{
-                    background: !showChips ? "rgba(79,70,229,0.06)" : "rgba(255,255,255,0.9)",
-                    color:"#4f46e5",
-                    border:"1px solid rgba(79,70,229,0.2)", borderRadius:20,
-                    padding:"5px 12px", fontSize:12, fontWeight:500,
-                    cursor: showChips ? "pointer" : "default",
-                    transition:"all 0.15s",
-                    opacity: showChips ? 1 : 0.6,
-                  }}>
-                    {s}
-                  </button>
-                ))}
-              </div>
+              {/* CHIPS — collapsibles */}
+              {showChips && (
+                <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingLeft:33,animation:"mmFadeIn 0.3s ease"}}>
+                  {SUGGESTIONS.map((s) => (
+                    <button key={s} className="mm-chip" onClick={() => sendMessage(s)} style={{
+                      background:"rgba(255,255,255,0.9)", color:"#4f46e5",
+                      border:"1px solid rgba(79,70,229,0.2)", borderRadius:20,
+                      padding:"5px 12px", fontSize:12, fontWeight:500, cursor:"pointer",
+                      transition:"all 0.15s",
+                    }}>
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               <div ref={messagesEndRef}/>
             </div>
@@ -432,6 +430,26 @@ export function AIAgent() {
               borderTop:"1px solid rgba(79,70,229,0.07)",
               background:"rgba(255,255,255,0.96)", flexShrink:0,
             }}>
+              <div style={{display:"flex",gap:6,alignItems:"center",marginBottom:7}}>
+                <button
+                  onClick={() => setShowChips(v => !v)}
+                  style={{
+                    display:"flex", alignItems:"center", gap:4,
+                    background: showChips ? "rgba(79,70,229,0.1)" : "rgba(79,70,229,0.04)",
+                    border:"1px solid rgba(79,70,229,0.2)", borderRadius:20,
+                    padding:"4px 10px", fontSize:11.5, fontWeight:500, color:"#4f46e5",
+                    cursor:"pointer", transition:"all 0.15s", flexShrink:0,
+                  }}
+                >
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    {showChips
+                      ? <><polyline points="18 15 12 9 6 15"/></>
+                      : <><polyline points="6 9 12 15 18 9"/></>
+                    }
+                  </svg>
+                  Suggestions
+                </button>
+              </div>
               <div style={{display:"flex",gap:7,alignItems:"center"}}>
                 <input
                   ref={inputRef}
