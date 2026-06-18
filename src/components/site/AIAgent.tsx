@@ -232,10 +232,10 @@ export function AIAgent() {
         .mm-msgs::-webkit-scrollbar-thumb { background:rgba(79,70,229,0.2); border-radius:4px }
         @media (max-width: 480px) {
           .mm-window {
-            bottom: 0 !important; right: 0 !important; left: 0 !important;
-            width: 100% !important; max-width: 100% !important;
-            border-radius: 20px 20px 0 0 !important;
-            max-height: 92vh !important;
+            bottom: 80px !important; right: 8px !important; left: 8px !important;
+            width: auto !important; max-width: 100% !important;
+            border-radius: 16px !important;
+            max-height: calc(100vh - 100px) !important;
           }
           .mm-fab-wrap { right: 16px !important; bottom: 16px !important; }
           .mm-tooltip { display: none !important; }
