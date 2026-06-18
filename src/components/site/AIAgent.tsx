@@ -230,14 +230,24 @@ export function AIAgent() {
         .mm-input:focus{ outline:none; border-color:rgba(79,70,229,0.45) !important; box-shadow:0 0 0 3px rgba(79,70,229,0.08) !important; }
         .mm-msgs::-webkit-scrollbar       { width:3px }
         .mm-msgs::-webkit-scrollbar-thumb { background:rgba(79,70,229,0.2); border-radius:4px }
+        @media (max-width: 480px) {
+          .mm-window {
+            bottom: 0 !important; right: 0 !important; left: 0 !important;
+            width: 100% !important; max-width: 100% !important;
+            border-radius: 20px 20px 0 0 !important;
+            max-height: 92vh !important;
+          }
+          .mm-fab-wrap { right: 16px !important; bottom: 16px !important; }
+          .mm-tooltip { display: none !important; }
+        }
       `}</style>
 
       <div className="mm-root">
 
         {/* ── FAB ── */}
-        <div className="fixed bottom-6 right-28 z-[9999] flex flex-col items-end gap-2">
+        <div className="mm-fab-wrap fixed bottom-6 right-28 z-[9999] flex flex-col items-end gap-2">
           {!open && (
-            <div style={{
+            <div className="mm-tooltip" style={{
               background:"rgba(255,255,255,0.95)", backdropFilter:"blur(12px)",
               border:"1px solid rgba(79,70,229,0.15)", borderRadius:20,
               padding:"7px 13px", fontSize:12.5, fontWeight:500, color:"#374151",
@@ -283,7 +293,7 @@ export function AIAgent() {
         {/* ── CHAT WINDOW ── */}
         {open && (
           <div
-            className="fixed z-[9999]"
+            className="mm-window fixed z-[9999]"
             style={{
               bottom:96, right:96,
               width:348,
