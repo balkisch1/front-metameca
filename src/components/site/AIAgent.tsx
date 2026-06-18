@@ -295,7 +295,7 @@ export function AIAgent() {
           <div
             className="mm-window fixed z-[9999]"
             style={{
-              bottom:96, right:96,
+              bottom:96, right:24,
               width:348,
               maxHeight:600, minHeight:420,
               background:"rgba(255,255,255,0.975)", backdropFilter:"blur(20px)",
@@ -406,21 +406,22 @@ export function AIAgent() {
                 </div>
               )}
 
-              {/* CHIPS */}
-              {showChips && messages.length <= 1 && !loading && (
-                <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingLeft:33,animation:"mmFadeIn 0.4s ease"}}>
-                  {SUGGESTIONS.map((s) => (
-                    <button key={s} className="mm-chip" onClick={() => sendMessage(s)} style={{
-                      background:"rgba(255,255,255,0.9)", color:"#4f46e5",
-                      border:"1px solid rgba(79,70,229,0.2)", borderRadius:20,
-                      padding:"5px 12px", fontSize:12, fontWeight:500, cursor:"pointer",
-                      transition:"all 0.15s",
-                    }}>
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {/* CHIPS — toujours visibles sous le 1er message bot */}
+              <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingLeft:33,animation:"mmFadeIn 0.4s ease"}}>
+                {SUGGESTIONS.map((s) => (
+                  <button key={s} className="mm-chip" onClick={() => showChips && sendMessage(s)} style={{
+                    background: !showChips ? "rgba(79,70,229,0.06)" : "rgba(255,255,255,0.9)",
+                    color:"#4f46e5",
+                    border:"1px solid rgba(79,70,229,0.2)", borderRadius:20,
+                    padding:"5px 12px", fontSize:12, fontWeight:500,
+                    cursor: showChips ? "pointer" : "default",
+                    transition:"all 0.15s",
+                    opacity: showChips ? 1 : 0.6,
+                  }}>
+                    {s}
+                  </button>
+                ))}
+              </div>
 
               <div ref={messagesEndRef}/>
             </div>
